@@ -1,5 +1,5 @@
 import { JwtService } from '@nestjs/jwt';
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { UsersService } from '../user/user.service';
 import { User } from '../user/user.entity';
@@ -19,9 +19,10 @@ export class AuthService {
         token,
       };
     }
+    throw new UnauthorizedException();
   }
 
   async validateUser(payload: JwtPayload): Promise<any> {
-    return await this.usersService.findUserBy({ email: payload.email });
+    return await this.usersService.findUserBy({ email: payload });
   }
 }
