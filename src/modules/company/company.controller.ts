@@ -6,9 +6,13 @@ import {
   Put,
   Delete,
   Param,
+  UploadedFile,
+  UseInterceptors,
+  FileInterceptor,
 } from '@nestjs/common';
 import { CompaniesService } from './company.service';
 import { CompanyDto } from './dto/company.dto';
+import { multerOptions } from 'config/multer.config';
 
 @Controller('/companies')
 export class CompaniesController {
@@ -27,17 +31,20 @@ export class CompaniesController {
   }
 
   @Post()
-  async createCompany(@Body() companyData: CompanyDto) {
-    const data = await this.companyService.addCompany(companyData);
+  @UseInterceptors(FileInterceptor('file', multerOptions))
+  async createCompany(@Body() companyData: CompanyDto, @UploadedFile() file) {
+    const data = await this.companyService.addCompany(companyData, file);
     return { data };
   }
 
   @Put(':id')
+  @UseInterceptors(FileInterceptor('file', multerOptions))
   async updateCompany(
     @Body() companyData: CompanyDto,
     @Param('id') id: string,
+    @UploadedFile() file,
   ) {
-    const data = await this.companyService.updateCompany(companyData, id);
+    const data = await this.companyService.updateCompany(companyData, id, file);
     return { data };
   }
 

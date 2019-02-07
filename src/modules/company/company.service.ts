@@ -23,13 +23,16 @@ export class CompaniesService {
     throw new NotFoundException();
   }
 
-  async addCompany(data: CompanyDto): Promise<Company> {
-    return await this.companiesRepository.create<Company>(data);
+  async addCompany(data: CompanyDto, file): Promise<Company> {
+    return await this.companiesRepository.create<Company>({
+      ...data,
+      filePath: file.filename,
+    });
   }
 
-  async updateCompany(data: CompanyDto, id: string): Promise<Company> {
+  async updateCompany(data: CompanyDto, id: string, file): Promise<Company> {
     const company = await this.findCompanyBy({ id });
-    return company.update(data);
+    return company.update({ ...data, filePath: file.filename });
   }
 
   async removeCompany(id: string) {

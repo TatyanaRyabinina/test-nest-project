@@ -27,6 +27,9 @@ export class Company extends Model<Company> {
   @Column
   phone: number;
 
+  @Column
+  filePath: string;
+
   @HasMany(() => Branch)
   branches: Branch[];
 }
