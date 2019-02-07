@@ -26,13 +26,13 @@ export class CompaniesService {
   async addCompany(data: CompanyDto, file): Promise<Company> {
     return await this.companiesRepository.create<Company>({
       ...data,
-      filePath: file.filename,
+      filePath: file ? file.filename : '',
     });
   }
 
   async updateCompany(data: CompanyDto, id: string, file): Promise<Company> {
     const company = await this.findCompanyBy({ id });
-    return company.update({ ...data, filePath: file.filename });
+    return company.update({ ...data, filePath: file ? file.filename : '' });
   }
 
   async removeCompany(id: string) {
