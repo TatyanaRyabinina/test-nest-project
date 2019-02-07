@@ -22,6 +22,10 @@ export class AuthService {
     throw new UnauthorizedException();
   }
 
+  async resetPass({ email }) {
+    return await this.usersService.findUserBy({ email });
+  }
+
   async validateUser(payload: JwtPayload): Promise<any> {
     return await this.usersService.findUserBy({ email: payload });
   }

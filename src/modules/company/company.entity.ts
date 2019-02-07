@@ -7,7 +7,25 @@ export class Company extends Model<Company> {
   companyName: string;
 
   @Column
-  companyId: number;
+  country: string;
+
+  @Column
+  state: string;
+
+  @Column
+  city: string;
+
+  @Column
+  street: string;
+
+  @Column
+  zip: string;
+
+  @Column
+  countryCode: string;
+
+  @Column
+  phone: number;
 
   @HasMany(() => Branch)
   branches: Branch[];
