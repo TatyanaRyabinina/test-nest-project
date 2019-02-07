@@ -10,7 +10,25 @@ import { Company } from '../company/company.entity';
 @Table
 export class Branch extends Model<Branch> {
   @Column
-  branchName: string;
+  country: string;
+
+  @Column
+  state: string;
+
+  @Column
+  city: string;
+
+  @Column
+  street: string;
+
+  @Column
+  zip: string;
+
+  @Column
+  countryCode: string;
+
+  @Column
+  phone: number;
 
   @ForeignKey(() => Company)
   @Column
