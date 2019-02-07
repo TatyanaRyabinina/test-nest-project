@@ -19,9 +19,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "setup:local": "docker-compose up -d",
-    "migration": "sequelize migration:generate --name",
-    "migrate:up": "sequelize db:migrate",
-    "migrate:down": "sequelize db:migrate:undo"
+    "migration": "./node_modules/.bin/sequelize migration:generate --name",
+    "migrate:up": "NODE_ENV=development ./node_modules/.bin/sequelize db:migrate",
+    "migrate:down": "NODE_ENV=development ./node_modules/.bin/sequelize db:migrate:undo"
   },
   "dependencies": {
     "@nestjs/common": "^5.4.0",
@@ -51,6 +51,7 @@
     "nodemon": "^1.18.3",
     "passport-jwt": "^4.0.0",
     "prettier": "^1.14.2",
+    "sequelize-cli": "^5.4.0",
     "supertest": "^3.1.0",
     "ts-jest": "^23.1.3",
     "ts-loader": "^4.4.2",
